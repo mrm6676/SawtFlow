@@ -26,12 +26,7 @@ button { cursor: pointer; }
 .site-header { height: 84px; width: min(1240px, calc(100% - 64px)); margin: 0 auto; display: flex; align-items: center; justify-content: space-between; position: relative; z-index: 30; }
 .brand { display: inline-flex; align-items: center; gap: 11px; font-size: 22px; font-weight: 800; letter-spacing: -1.3px; }
 .brand > span:last-child span { color: var(--blue); }
-.brand-mark { width: 30px; height: 28px; position: relative; display: flex; align-items: center; gap: 3px; transform: skewX(-11deg); }
-.brand-mark::before { content: ""; position: absolute; width: 100%; height: 100%; border: 2px solid var(--blue); border-radius: 10px 10px 10px 2px; opacity: .28; }
-.brand-mark i { position: relative; display: block; width: 3px; border-radius: 999px; background: var(--blue); }
-.brand-mark i:nth-child(1) { height: 11px; margin-left: 7px; }
-.brand-mark i:nth-child(2) { height: 20px; }
-.brand-mark i:nth-child(3) { height: 14px; }
+.brand-mark { width: 32px; height: 32px; display: block; flex: 0 0 auto; }
 .desktop-nav { display: flex; gap: 30px; font-size: 13px; font-weight: 700; color: #58657c; }
 .desktop-nav a, .text-link, .footer-meta a { transition: color .2s ease; }
 .desktop-nav a:hover, .text-link:hover, .footer-meta a:hover { color: var(--blue); }
@@ -59,7 +54,7 @@ h1, h2, h3, p { margin-top: 0; }.hero h1 { margin: 19px 0 8px; max-width: 620px;
 
 .demo-section { padding: 112px 0; color: white; background: #0c1c3d; position: relative; overflow: hidden; }.demo-section::before { content: ""; position: absolute; width: 520px; height: 520px; right: -135px; top: -225px; border: 1px solid rgba(62, 199, 255, .25); border-radius: 50%; box-shadow: 0 0 0 65px rgba(62, 199, 255, .035), 0 0 0 130px rgba(62, 199, 255, .025); }.demo-layout { display: grid; grid-template-columns: 1fr .85fr; gap: 110px; align-items: center; position: relative; }.demo-copy h2 { margin-bottom: 22px; }.demo-copy h2 em { color: var(--cyan); }.demo-copy > p { max-width: 462px; color: #a6b4cb; font-size: 15px; line-height: 1.8; }.contact-note { display: flex; align-items: center; gap: 9px; margin-top: 28px; color: #d3e4ff; font-size: 11px; font-weight: 700; }.contact-note span { color: var(--cyan); }.demo-form { display: grid; gap: 15px; padding: 27px; color: #16315b; background: #f8f7f1; border-radius: 5px; box-shadow: 18px 22px 0 rgba(38, 92, 217, .25); }.form-heading { display: flex; justify-content: space-between; margin-bottom: 4px; color: #63728b; font: 500 9px var(--mono); letter-spacing: .8px; }.form-heading b { color: #2a65f1; font-weight: 500; }.demo-form label { display: grid; gap: 7px; color: #52637e; font-size: 10px; font-weight: 800; }.demo-form input, .demo-form textarea { width: 100%; padding: 11px 0; border: 0; border-bottom: 1px solid #d6dce0; border-radius: 0; outline: none; color: #15325e; font-size: 13px; background: transparent; transition: border-color .2s ease; resize: vertical; }.demo-form input:focus, .demo-form textarea:focus { border-color: var(--blue); }.demo-form input::placeholder, .demo-form textarea::placeholder { color: #a0a9b6; }.button-warm { width: 100%; margin-top: 4px; color: #102e60; background: var(--warm); }.form-footnote, .form-message { margin: 0; text-align: center; font-size: 9px; line-height: 1.5; }.form-footnote { color: #8490a0; }.form-message { min-height: 14px; color: #167250; font-weight: 700; }
 
-.site-footer { min-height: 118px; display: grid; grid-template-columns: auto 1fr auto; align-items: center; gap: 32px; }.footer-brand { font-size: 18px; }.footer-brand .brand-mark { transform: scale(.84) skewX(-11deg); transform-origin: left center; width: 26px; }.site-footer > p { margin: 0; color: #788399; font-size: 11px; }.footer-meta { display: flex; gap: 20px; color: #7b879b; font-size: 10px; }.footer-meta a { font-weight: 700; color: #526785; }
+.site-footer { min-height: 118px; display: grid; grid-template-columns: auto 1fr auto; align-items: center; gap: 32px; }.footer-brand { font-size: 18px; }.footer-brand .brand-mark { transform: scale(.84); transform-origin: left center; width: 28px; height: 28px; }.site-footer > p { margin: 0; color: #788399; font-size: 11px; }.footer-meta { display: flex; gap: 20px; color: #7b879b; font-size: 10px; }.footer-meta a { font-weight: 700; color: #526785; }
 
 @keyframes bars { 50% { transform: scaleY(.45); opacity: .5; } }@keyframes scan { 0%,100%{ transform: translateY(-142px); opacity:0} 14%,78%{opacity:.65} 50%{transform:translateY(140px)} }@keyframes marquee { to { transform: translateX(-50%); } }
 

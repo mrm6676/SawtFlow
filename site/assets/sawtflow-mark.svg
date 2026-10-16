@@ -1,1 +1,25 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-labelledby="title"><title>SawtFlow AI mark</title><rect x="5" y="5" width="54" height="54" rx="18" fill="#07142D"/><path d="M18 36.5V27.5M27 43V21M36 38V26M45 47V17" stroke="#38D8FF" stroke-width="4.5" stroke-linecap="round"/><path d="M14 45c10-4 17-3 26 1 5 2 8 2 11 0" fill="none" stroke="#FFB144" stroke-width="3" stroke-linecap="round"/></svg>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 96 96" role="img" aria-labelledby="title desc">
+  <title id="title">SawtFlow AI mark</title>
+  <desc id="desc">An intelligent audio signal orbit with a verified amber node</desc>
+  <defs>
+    <linearGradient id="bg" x1="12" y1="10" x2="86" y2="88" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#142D62"/>
+      <stop offset="1" stop-color="#07142D"/>
+    </linearGradient>
+    <linearGradient id="signal" x1="20" y1="67" x2="72" y2="28" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#38D8FF"/>
+      <stop offset="1" stop-color="#8DEBFF"/>
+    </linearGradient>
+    <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="2.2" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+  <rect x="4" y="4" width="88" height="88" rx="27" fill="url(#bg)"/>
+  <path d="M19 67.5C30 37 48 25 77 29" fill="none" stroke="#38D8FF" stroke-opacity=".18" stroke-width="1.5" stroke-linecap="round"/>
+  <path d="M18 54c9-3 13-14 20-13 7 1 7 18 14 18 7 0 10-23 17-23 5 0 7 9 12 10" fill="none" stroke="url(#signal)" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" filter="url(#glow)"/>
+  <circle cx="18" cy="54" r="4" fill="#38D8FF"/>
+  <circle cx="77" cy="29" r="5" fill="#FFB144"/>
+  <circle cx="77" cy="29" r="9" fill="none" stroke="#FFB144" stroke-opacity=".28" stroke-width="1.5"/>
+  <path d="M70 72h9M74.5 67.5v9" stroke="#FFB144" stroke-width="2" stroke-linecap="round" opacity=".9"/>
+</svg>
