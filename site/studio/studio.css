@@ -20,3 +20,9 @@ html[data-theme="dark"] { --studio-surface: rgba(16,39,76,.72); --studio-line: r
 
 .editor-actions { display: flex; align-items: center; gap: 7px; }
 @media (max-width: 600px) { .editor-footer { align-items: flex-start; flex-direction: column; } .editor-actions { width: 100%; } .editor-actions .studio-button { flex: 1; } }
+
+.source-buttons { display: flex; align-items: center; gap: 7px; flex-wrap: wrap; }.studio-button.record { color: #fff; background: #102e60; }.studio-button.record:hover { background: #173c79; }.studio-button.recording { color: #fff; background: #c74358; animation: record-pulse 1.4s ease-in-out infinite; }.record-dot { width: 7px; height: 7px; border-radius: 50%; background: #ff8290; }.recording .record-dot { background: #fff; box-shadow: 0 0 0 4px rgba(255,255,255,.18); }.recorded-audio { display: block; width: 100%; height: 34px; margin-top: 12px; }.recorded-audio::-webkit-media-controls-panel { background: #e7f6ff; }
+@keyframes record-pulse { 50% { box-shadow: 0 0 0 5px rgba(199,67,88,.18); } }
+@media (max-width: 600px) { .source-buttons { width: 100%; }.source-buttons .studio-button { flex: 1; }.source-actions { align-items: flex-start; flex-direction: column; } }
+
+[hidden] { display: none !important; }
