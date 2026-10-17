@@ -4,6 +4,16 @@ const form = document.querySelector('#demo-form');
 const message = document.querySelector('#form-message');
 const languageToggle = document.querySelector('[data-lang-toggle]');
 const themeToggle = document.querySelector('[data-theme-toggle]');
+const audioUpload = document.querySelector('#audio-upload');
+const sampleVoice = document.querySelector('#sample-voice');
+const transcriptInput = document.querySelector('#demo-transcript-input');
+const editTranscript = document.querySelector('#edit-transcript');
+const retrieveOrder = document.querySelector('#retrieve-order');
+const approveReply = document.querySelector('#approve-reply');
+const demoEvidence = document.querySelector('#demo-evidence');
+const demoApproval = document.querySelector('#demo-approval');
+const demoResponse = document.querySelector('#demo-response');
+const draftResponse = document.querySelector('#draft-response');
 
 const translations = {
   en: {
@@ -42,7 +52,7 @@ const translations = {
     formLabels: ['Name', 'Work email', 'What would you like to automate?'],
     formPlaceholders: ['Your name', 'you@company.com', 'e.g. Arabic booking calls, order inquiries...'],
     formButton: 'Request a conversation <span aria-hidden="true">→</span>',
-    formFootnote: 'This demo form is ready to connect to your CRM or preferred inbox.',
+    formFootnote: 'This preview saves requests locally; connect a CRM or inbox for production delivery.',
     footer: 'Arabic voice intelligence for business automation.',
     backToTop: 'Back to top ↑',
     languageLabel: 'عربي',
@@ -87,7 +97,7 @@ const translations = {
     formLabels: ['الاسم', 'البريد الإلكتروني للعمل', 'ما الذي ترغب في أتمتته؟'],
     formPlaceholders: ['اسمك', 'you@company.com', 'مثال: مكالمات حجز عربية، استفسارات الطلبات...'],
     formButton: 'اطلب محادثة <span aria-hidden="true">→</span>',
-    formFootnote: 'هذا النموذج التجريبي جاهز للربط مع CRM أو صندوق بريدك المفضل.',
+    formFootnote: 'يحفظ هذا العرض الطلبات محلياً؛ اربطه بـ CRM أو بريدك للتشغيل الفعلي.',
     footer: 'ذكاء صوتي عربي لأتمتة الأعمال.',
     backToTop: 'العودة إلى الأعلى ↑',
     languageLabel: 'EN',
@@ -107,6 +117,28 @@ function setAll(selector, values, useHtml = false) {
   document.querySelectorAll(selector).forEach((node, index) => {
     if (values[index] !== undefined) node[useHtml ? 'innerHTML' : 'textContent'] = values[index];
   });
+}
+
+function setAgentDemoLanguage(language) {
+  const isArabic = language === 'ar';
+  setText('#agent-demo .agent-demo-head .eyebrow', isArabic ? 'عرض الوكيل المباشر' : 'LIVE AGENT DEMO');
+  setText('.demo-status', `<i></i> ${isArabic ? 'بيانات تجريبية' : 'SAMPLE DATA'}`, true);
+  setText('#upload-label', isArabic ? 'ارفع تسجيلاً عربياً' : 'Upload Arabic voice');
+  setText('#sample-voice', isArabic ? 'استخدم رسالة تجريبية' : 'Use sample message');
+  setText('.demo-kicker', `${isArabic ? 'النص المفرغ' : 'TRANSCRIPT'} <span id="transcript-state">${isArabic ? 'جاهز' : 'READY'}</span>`, true);
+  setText('#edit-transcript', isArabic ? 'صحّح النص' : 'Correct transcript');
+  setAll('.demo-intent-grid > div span', isArabic ? ['النية', 'اللغة', 'الأولوية'] : ['INTENT', 'LANGUAGE', 'URGENCY']);
+  setAll('.demo-intent-grid > div strong', isArabic ? ['حالة الطلب', 'عربي / إنجليزي', 'عادية'] : ['Order status', 'Arabic / English', 'Normal']);
+  setText('.demo-action-card span', isArabic ? 'إجراء معتمد' : 'APPROVED ACTION');
+  setText('.demo-action-card strong', isArabic ? 'استرجاع حالة الطلب' : 'Retrieve order status');
+  setText('#retrieve-order', `${isArabic ? 'تشغيل البحث' : 'Run lookup'} <span aria-hidden="true">→</span>`, true);
+  setText('.evidence-heading span', isArabic ? 'الأدلة المسترجعة' : 'RETRIEVED EVIDENCE');
+  setText('.evidence-heading b', isArabic ? 'قاعدة الطلبات' : 'ORDER DB');
+  setText('.demo-approval span', isArabic ? 'موافقة بشرية مطلوبة' : 'HUMAN APPROVAL REQUIRED');
+  setText('.demo-approval strong', isArabic ? 'راجع الرد المقترح قبل الإرسال.' : 'Review the drafted reply before sending.');
+  setText('#approve-reply', `${isArabic ? 'اعتماد المسودة' : 'Approve draft'} <span aria-hidden="true">✓</span>`, true);
+  setText('.demo-response > span', isArabic ? 'رد مقترح' : 'DRAFT RESPONSE');
+  if (draftResponse) draftResponse.textContent = isArabic ? 'طلبك قيد الشحن، ومن المتوقع أن يصل اليوم قبل الساعة 6:00 مساءً.' : 'Your order is in transit and is expected to arrive today by 6:00 PM.';
 }
 
 function applyLanguage(language) {
@@ -158,6 +190,7 @@ function applyLanguage(language) {
   setText('.form-footnote', content.formFootnote);
   setText('.site-footer > p', content.footer);
   setText('.footer-meta a', content.backToTop);
+  setAgentDemoLanguage(language);
   languageToggle.textContent = content.languageLabel;
   languageToggle.setAttribute('aria-label', content.languageAria);
   themeToggle.querySelector('.theme-label').textContent = document.documentElement.dataset.theme === 'dark' ? (isArabic ? 'فاتح' : 'Light') : content.themeLabel;
@@ -199,6 +232,53 @@ themeToggle?.addEventListener('click', () => {
   applyTheme(current === 'light' ? 'dark' : 'light');
 });
 
+function resetAgentFlow() {
+  demoEvidence.hidden = true;
+  demoApproval.hidden = true;
+  demoResponse.hidden = true;
+  const state = document.querySelector('#transcript-state');
+  if (state) state.textContent = (localStorage.getItem('sawtflow-language') || 'en') === 'ar' ? 'جاهز' : 'READY';
+}
+
+audioUpload?.addEventListener('change', () => {
+  const file = audioUpload.files?.[0];
+  if (!file) return;
+  const language = localStorage.getItem('sawtflow-language') || 'en';
+  resetAgentFlow();
+  const state = document.querySelector('#transcript-state');
+  if (state) state.textContent = language === 'ar' ? 'تم التحميل' : 'FILE READY';
+  setText('#upload-label', file.name);
+  transcriptInput.value = language === 'ar' ? 'أين طلبي؟ قيل لي إنه سيصل اليوم.' : 'Where is my order? I was told it would arrive today.';
+});
+
+sampleVoice?.addEventListener('click', () => {
+  const language = localStorage.getItem('sawtflow-language') || 'en';
+  transcriptInput.value = language === 'ar' ? 'أين طلبي؟ قيل لي إنه سيصل اليوم.' : 'Where is my order? I was told it would arrive today.';
+  setText('#upload-label', language === 'ar' ? 'ارفع تسجيلاً عربياً' : 'Upload Arabic voice');
+  resetAgentFlow();
+});
+
+editTranscript?.addEventListener('click', () => {
+  const language = localStorage.getItem('sawtflow-language') || 'en';
+  const editing = transcriptInput.readOnly;
+  transcriptInput.readOnly = !editing;
+  editTranscript.textContent = editing ? (language === 'ar' ? 'حفظ التصحيح' : 'Save correction') : (language === 'ar' ? 'صحّح النص' : 'Correct transcript');
+  if (editing) transcriptInput.focus();
+});
+
+retrieveOrder?.addEventListener('click', () => {
+  demoEvidence.hidden = false;
+  demoApproval.hidden = false;
+  demoResponse.hidden = true;
+  demoApproval.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+});
+
+approveReply?.addEventListener('click', () => {
+  demoResponse.hidden = false;
+  const language = localStorage.getItem('sawtflow-language') || 'en';
+  if (draftResponse) draftResponse.textContent = language === 'ar' ? 'طلبك قيد الشحن، ومن المتوقع أن يصل اليوم قبل الساعة 6:00 مساءً.' : 'Your order is in transit and is expected to arrive today by 6:00 PM.';
+});
+
 form?.addEventListener('submit', (event) => {
   event.preventDefault();
   if (!form.checkValidity()) {
@@ -207,7 +287,11 @@ form?.addEventListener('submit', (event) => {
   }
   const language = localStorage.getItem('sawtflow-language') || 'en';
   const content = translations[language];
-  const name = new FormData(form).get('name');
+  const formData = new FormData(form);
+  const name = formData.get('name');
+  const leads = JSON.parse(localStorage.getItem('sawtflow-leads') || '[]');
+  leads.push({ name, email: formData.get('email'), challenge: formData.get('challenge'), createdAt: new Date().toISOString() });
+  localStorage.setItem('sawtflow-leads', JSON.stringify(leads));
   message.textContent = content.formThanks.replace('{, name}', name ? `, ${name}` : '');
   form.reset();
 });
