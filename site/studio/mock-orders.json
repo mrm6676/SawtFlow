@@ -2,6 +2,9 @@
   "orders": [
     {"id":"SF-1048","status":"In transit","eta":"Today · 6:00 PM","lastScan":"Riyadh hub · 09:42","response":"Your order is in transit and is expected to arrive today by 6:00 PM."},
     {"id":"SF-2086","status":"Delivered","eta":"Delivered · Yesterday","lastScan":"Jeddah customer address · 16:18","response":"Your order was delivered yesterday at 4:18 PM."},
-    {"id":"SF-3312","status":"Preparing","eta":"Tomorrow · 2:00 PM","lastScan":"Dammam fulfillment center · 08:05","response":"Your order is being prepared and is expected to arrive tomorrow by 2:00 PM."}
+    {"id":"SF-3312","status":"Preparing","eta":"Tomorrow · 2:00 PM","lastScan":"Dammam fulfillment center · 08:05","response":"Your order is being prepared and is expected to arrive tomorrow by 2:00 PM."},
+    {"id":"SF-4420","status":"Delayed","eta":"Revised · 24 Oct · 8:00 PM","lastScan":"Dubai hub · Weather delay · 07:35","response":"Your order has been delayed by a weather disruption. The revised delivery estimate is 24 October by 8:00 PM."},
+    {"id":"SF-5177","status":"Canceled","eta":"Not applicable","lastScan":"Cancellation confirmed · 11:20","response":"This order was canceled successfully. No further delivery action is required."},
+    {"id":"SF-6089","status":"Out for delivery","eta":"Today · before 9:00 PM","lastScan":"Riyadh delivery vehicle · 13:12","response":"Your order is out for delivery and should arrive today before 9:00 PM."}
   ]
 }
