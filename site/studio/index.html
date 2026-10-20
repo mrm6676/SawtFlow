@@ -79,14 +79,15 @@
           <div class="card-heading"><span class="card-index">04 / ACTION</span><span class="card-status amber"><i></i><span data-i18n="approvedLookup">APPROVED LOOKUP</span></span></div>
           <h2 data-i18n="actionTitle">Retrieve the<br /><em>right evidence.</em></h2>
           <p data-i18n="actionLead">The agent proposes a read-only order lookup before drafting a response.</p>
+          <label class="order-lookup"><span data-i18n="orderIdLabel">ORDER ID</span><input id="studio-order-id" value="SF-1048" autocomplete="off" spellcheck="false" /><small id="lookup-status" aria-live="polite" data-i18n="lookupReady">Mock database ready</small></label>
           <button id="studio-retrieve" class="studio-button primary wide" type="button" data-i18n="retrieve">Retrieve order status →</button>
-          <div id="studio-evidence" class="studio-evidence" hidden><div><span>ORDER</span><strong>SF-1048</strong></div><div><span>STATUS</span><strong>In transit</strong></div><div><span>ETA</span><strong>Today · 6:00 PM</strong></div><div><span>LAST SCAN</span><strong>Riyadh hub · 09:42</strong></div></div>
+          <div id="studio-evidence" class="studio-evidence" hidden><div><span>ORDER</span><strong id="evidence-order">SF-1048</strong></div><div><span>STATUS</span><strong id="evidence-status">In transit</strong></div><div><span>ETA</span><strong id="evidence-eta">Today · 6:00 PM</strong></div><div><span>LAST SCAN</span><strong id="evidence-scan">Riyadh hub · 09:42</strong></div></div>
         </div>
         <div class="studio-card output-card approval-card">
           <div class="card-heading"><span class="card-index">05 / APPROVAL</span><span class="card-status amber"><i></i><span data-i18n="humanGate">HUMAN GATE</span></span></div>
           <h2 data-i18n="responseTitle">Respond with<br /><em>context.</em></h2>
           <div class="draft-box"><span data-i18n="draftLabel">DRAFT RESPONSE</span><p id="studio-response">Your order is in transit and is expected to arrive today by 6:00 PM.</p></div>
-          <button id="studio-approve" class="studio-button approve wide" type="button" data-i18n="approve">Approve response ✓</button>
+          <button id="studio-approve" class="studio-button approve wide" type="button" data-i18n="approve" disabled>Approve response ✓</button>
           <div id="studio-approved" class="approved-state" hidden><span>✓</span><strong data-i18n="approved">Approved · ready to send</strong></div>
         </div>
       </section>

@@ -1,0 +1,7 @@
+{
+  "orders": [
+    {"id":"SF-1048","status":"In transit","eta":"Today · 6:00 PM","lastScan":"Riyadh hub · 09:42","response":"Your order is in transit and is expected to arrive today by 6:00 PM."},
+    {"id":"SF-2086","status":"Delivered","eta":"Delivered · Yesterday","lastScan":"Jeddah customer address · 16:18","response":"Your order was delivered yesterday at 4:18 PM."},
+    {"id":"SF-3312","status":"Preparing","eta":"Tomorrow · 2:00 PM","lastScan":"Dammam fulfillment center · 08:05","response":"Your order is being prepared and is expected to arrive tomorrow by 2:00 PM."}
+  ]
+}
