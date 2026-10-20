@@ -8,6 +8,7 @@ const recordButton = document.querySelector('#studio-record');
 const recordLabel = document.querySelector('#record-label');
 const recordTimer = document.querySelector('#record-timer');
 const recordedAudio = document.querySelector('#recorded-audio');
+const uploadedAudio = document.querySelector('#uploaded-audio');
 const sampleButton = document.querySelector('#studio-sample');
 const transcript = document.querySelector('#studio-transcript');
 const editButton = document.querySelector('#studio-edit');
@@ -54,6 +55,7 @@ function setAllI18n(language) {
   langToggle.textContent = language === 'ar' ? 'EN' : 'عربي';
   langToggle.setAttribute('aria-label', language === 'ar' ? 'Switch to English' : 'Switch to Arabic');
   transcript.value = sample[language].transcript;
+  document.querySelector('#sample-quote-text').textContent = sample[language].quote;
   if (!approved.hidden) response.textContent = sample[language].response;
   localStorage.setItem('sawtflow-language', language);
 }
@@ -69,7 +71,9 @@ function setTheme(theme) {
 }
 
 function resetOutputs() { evidence.hidden = true; approved.hidden = true; activeOrder = null; approveButton.disabled = true; }
-function loadSample() { const language = currentLanguage(); transcript.value = sample[language].transcript; fileName.textContent = language === 'ar' ? 'رسالة عينة جاهزة' : 'Sample message ready'; audioStatus.textContent = language === 'ar' ? 'تم تحميل العينة' : 'Sample loaded'; resetOutputs(); }
+function clearUploadedAudio() { if (uploadedAudio) { uploadedAudio.pause(); uploadedAudio.removeAttribute('src'); uploadedAudio.load(); uploadedAudio.hidden = true; } }
+function loadSample() { const language = currentLanguage(); clearUploadedAudio(); transcript.value = sample[language].transcript; fileName.textContent = language === 'ar' ? 'رسالة عينة جاهزة' : 'Sample message ready'; audioStatus.textContent = language === 'ar' ? 'تم تحميل العينة' : 'Sample loaded'; resetOutputs(); }
+function loadAudioFile(file) { if (!file) return; const language = currentLanguage(); if (uploadedAudio) { uploadedAudio.src = URL.createObjectURL(file); uploadedAudio.hidden = false; } fileName.textContent = file.name; audioStatus.textContent = language === 'ar' ? 'تم تحميل الصوت' : 'Audio loaded'; transcript.value = sample[language].transcript; resetOutputs(); }
 
 function formatRecordTime() { return `${String(Math.floor(recordSeconds / 60)).padStart(2, '0')}:${String(recordSeconds % 60).padStart(2, '0')}`; }
 function setRecordLabel(text) { if (recordLabel) recordLabel.textContent = text; }
@@ -91,6 +95,7 @@ async function toggleRecording() {
       clearInterval(recordInterval);
       const blob = new Blob(recordedChunks, { type: mediaRecorder.mimeType || 'audio/webm' });
       if (recordedAudio) { recordedAudio.src = URL.createObjectURL(blob); recordedAudio.hidden = false; }
+      clearUploadedAudio();
       fileName.textContent = language === 'ar' ? 'تسجيل صوتي جاهز' : 'Recorded voice ready';
       audioStatus.textContent = language === 'ar' ? `تم التسجيل · ${formatRecordTime()}` : `Recorded · ${formatRecordTime()}`;
       setRecordLabel(copy[language].record);
@@ -113,10 +118,10 @@ async function toggleRecording() {
 
 recordButton.addEventListener('click', toggleRecording);
 sampleButton.addEventListener('click', loadSample);
-audioInput.addEventListener('change', () => { const file = audioInput.files?.[0]; if (!file) return; fileName.textContent = file.name; audioStatus.textContent = currentLanguage() === 'ar' ? 'تم تحميل الصوت' : 'Audio loaded'; transcript.value = sample[currentLanguage()].transcript; resetOutputs(); });
+audioInput.addEventListener('change', () => loadAudioFile(audioInput.files?.[0]));
 ['dragenter', 'dragover'].forEach((eventName) => dropzone.addEventListener(eventName, (event) => { event.preventDefault(); dropzone.classList.add('dragover'); }));
 ['dragleave', 'drop'].forEach((eventName) => dropzone.addEventListener(eventName, (event) => { event.preventDefault(); dropzone.classList.remove('dragover'); }));
-dropzone.addEventListener('drop', (event) => { const file = event.dataTransfer.files?.[0]; if (!file) return; fileName.textContent = file.name; audioStatus.textContent = currentLanguage() === 'ar' ? 'تم تحميل الصوت' : 'Audio loaded'; transcript.value = sample[currentLanguage()].transcript; resetOutputs(); });
+dropzone.addEventListener('drop', (event) => loadAudioFile(event.dataTransfer.files?.[0]));
 editButton.addEventListener('click', () => { const editing = transcript.readOnly; transcript.readOnly = !editing; editButton.textContent = editing ? (currentLanguage() === 'ar' ? 'حفظ التصحيح' : 'Save correction') : copy[currentLanguage()].edit; if (editing) transcript.focus(); });
 generateButton.addEventListener('click', () => { transcript.value = sample[currentLanguage()].transcript; confidence.textContent = copy[currentLanguage()].confidence; audioStatus.textContent = currentLanguage() === 'ar' ? 'تم توليد النص' : 'Transcript generated'; resetOutputs(); });
 analyzeButton.addEventListener('click', () => { confidence.textContent = currentLanguage() === 'ar' ? 'الثقة 98.4%' : 'Confidence 98.4%'; document.querySelector('.intent-card').classList.add('is-analyzed'); });
