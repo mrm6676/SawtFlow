@@ -7,15 +7,16 @@ const themeToggle = document.querySelector('[data-theme-toggle]');
 
 const translations = {
   en: {
-    nav: ['Capabilities', 'How it works', 'Use cases', 'Trust'],
-    mobileNav: ['Capabilities', 'How it works', 'Use cases', 'Trust', 'Talk to an expert'],
+    nav: ['Capabilities', 'How it works', 'Use cases', 'Studio', 'Trust'],
+    mobileNav: ['Capabilities', 'How it works', 'Use cases', 'Studio', 'Trust', 'Talk to an expert'],
     navCta: 'Talk to an expert <span aria-hidden="true">↗</span>',
     heroEyebrow: 'ARABIC VOICE INTELLIGENCE',
     heroTitle: 'Speech that makes<br><em>business move.</em>',
     heroArabic: 'فهمٌ أدق. قراراتٌ أوثق. عملٌ أسرع.',
     heroIntro: 'SawtFlow understands how your customers really speak—across Arabic dialects, English switches, noisy calls, and the intent hiding between the words.',
     heroButton: 'See SawtFlow in action <span aria-hidden="true">→</span>',
-    heroFlow: 'Explore the flow <span aria-hidden="true">↓</span>',
+    heroFlow: 'Open Studio <span aria-hidden="true">↗</span>',
+    uploadVoice: 'Upload a voice <span aria-hidden="true">↑</span>',
     proof: [['Dialect-aware', 'Arabic from the real world'], ['Human-in-control', 'Approved actions only']],
     marquee: ['Arabic dialects', 'Mixed-language speech', 'Intent intelligence', 'Verified automation', 'Arabic dialects', 'Mixed-language speech', 'Intent intelligence', 'Verified automation'],
     capabilityEyebrow: 'BUILT FOR THE WAY PEOPLE SPEAK',
@@ -52,15 +53,16 @@ const translations = {
     formThanks: 'Thanks{, name}. This preview validates the inquiry flow; connect it to your CRM or inbox to receive live requests.'
   },
   ar: {
-    nav: ['القدرات', 'كيف تعمل', 'حالات الاستخدام', 'الثقة'],
-    mobileNav: ['القدرات', 'كيف تعمل', 'حالات الاستخدام', 'الثقة', 'تحدث مع خبير'],
+    nav: ['القدرات', 'كيف تعمل', 'حالات الاستخدام', 'الاستوديو', 'الثقة'],
+    mobileNav: ['القدرات', 'كيف تعمل', 'حالات الاستخدام', 'الاستوديو', 'الثقة', 'تحدث مع خبير'],
     navCta: 'تحدث مع خبير <span aria-hidden="true">↗</span>',
     heroEyebrow: 'ذكاء صوتي عربي',
     heroTitle: 'صوتٌ يفهم.<br><em>وأعمالٌ تتحرّك.</em>',
     heroArabic: 'فهمٌ أدق. قراراتٌ أوثق. عملٌ أسرع.',
     heroIntro: 'يفهم SawtFlow طريقة حديث عملائك الحقيقية—من اللهجات العربية إلى المزج بين العربية والإنجليزية، والضوضاء، والنية المختبئة بين الكلمات.',
     heroButton: 'شاهد SawtFlow في العمل <span aria-hidden="true">→</span>',
-    heroFlow: 'استكشف التدفق <span aria-hidden="true">↓</span>',
+    heroFlow: 'افتح الاستوديو <span aria-hidden="true">↗</span>',
+    uploadVoice: 'ارفع صوتاً <span aria-hidden="true">↑</span>',
     proof: [['يفهم اللهجات', 'عربية من الواقع'], ['الإنسان في دائرة التحكم', 'إجراءات معتمدة فقط']],
     marquee: ['اللهجات العربية', 'حديث عربي-إنجليزي', 'ذكاء النية', 'أتمتة موثوقة', 'اللهجات العربية', 'حديث عربي-إنجليزي', 'ذكاء النية', 'أتمتة موثوقة'],
     capabilityEyebrow: 'مصمم للطريقة التي يتحدث بها الناس',
@@ -123,7 +125,8 @@ function applyLanguage(language) {
   setText('.hero-arabic', content.heroArabic);
   setText('.hero-intro', content.heroIntro);
   setText('.button-primary', content.heroButton, true);
-  setText('.hero-actions .text-link', content.heroFlow, true);
+  setText('.hero-actions .studio-link', content.heroFlow, true);
+  setText('.hero-actions .upload-link', content.uploadVoice, true);
   setAll('.hero-proof strong', content.proof.map((item) => item[0]));
   setAll('.hero-proof span', content.proof.map((item) => item[1]));
   setAll('.marquee-track span', content.marquee);
